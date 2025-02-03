@@ -12,53 +12,55 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 public class ObjConsumer implements VertexConsumer {
 
-    private double x,y,z;
+    private float x,y,z;
     private float u,v;
     private List<VertexData> vertexData = new ArrayList<>();
     
     @Override
-    public VertexConsumer color(int i, int j, int k, int l) {
+    public VertexConsumer setColor(int i, int j, int k, int l) {
         return this;
     }
-
-    @Override
+	
     public void defaultColor(int i, int j, int k, int l) {
     }
 
-    @Override
     public void endVertex() {
         vertexData.add(new VertexData(x, y, z, u, v));
     }
 
     @Override
-    public VertexConsumer normal(float f, float g, float h) {
+    public VertexConsumer setNormal(float f, float g, float h) {
         return this;
     }
 
-    @Override
     public VertexConsumer overlayCoords(int i, int j) {
         return this;
     }
 
-    @Override
     public void unsetDefaultColor() {
 
     }
 
     @Override
-    public VertexConsumer uv(float f, float g) {
+    public VertexConsumer setUv(float f, float g) {
         this.u = f;
         this.v = g;
+		endVertex();
         return this;
     }
 
     @Override
-    public VertexConsumer uv2(int i, int j) {
+    public VertexConsumer setUv1(int i, int j) {
+        return this;
+    }
+	
+    @Override
+    public VertexConsumer setUv2(int i, int j) {
         return this;
     }
 
     @Override
-    public VertexConsumer vertex(double d, double e, double f) {
+    public VertexConsumer addVertex(float d, float e, float f) {
         this.x = d;
         this.y = e;
         this.z = f;
@@ -82,6 +84,6 @@ public class ObjConsumer implements VertexConsumer {
         }
     }
     
-    private record VertexData(double x, double y, double z, float u, float v) {}
+    private record VertexData(float x, float y, float z, float u, float v) {}
 
 }
